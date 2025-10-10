@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <h2>[Unreleased]</h2>
 
+<h3><!-- 1 -->Added</h3>
+- Added bindings to `DEV`, `isServer`, `getOwner`, and `runWithOwner`. by @shayanhabibi in [#42](https://github.com/shayanhabibi/Partas.Solid/pull/42)
+
 <h3><!-- 9 -->Other</h3>
 - Merge remote-tracking branch 'origin/master' by @shayanhabibi
 
