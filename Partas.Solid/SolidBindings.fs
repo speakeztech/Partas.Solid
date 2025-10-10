@@ -8,6 +8,8 @@ open System
 #nowarn 49
 
 type ComparisonFunc<'T> = delegate of prev: 'T * next: 'T -> bool
+/// Alias for a unit call signature which disposes of resources when run.
+type DisposalFunc = unit -> unit
 
 [<AutoOpen>]
 module Bindings =
@@ -446,6 +448,12 @@ module Bindings =
         static member inline Find(this: SolidStorePath<'T, 'Value array>, predicate: 'Value -> bool) =
             SolidStorePath<'T, 'Value> (this.Setter, Array.append this.Path [| predicate |])
 
+    type Owner =
+        abstract member owner: Owner option
+        abstract member context: obj option
+        abstract member owned: Owner[] option
+        abstract member cleanups: (unit -> unit)[] option
+
 [<AutoOpen>]
 [<Erase>]
 type Bindings =
@@ -621,6 +629,12 @@ type Bindings =
     static member createRoot(fn (* dispose *) : Action -> 'T) : 'T = jsNative
 
     [<ImportMember("solid-js")>]
+    static member getOwner() : Owner option = jsNative
+
+    [<ImportMember("solid-js")>]
+    static member inline runWithOwner<'ReturnType>(o: Owner, fn: unit -> 'ReturnType) : 'ReturnType option = jsNative
+
+    [<ImportMember("solid-js")>]
     static member createUniqueId() : string = jsNative
 
     [<ImportMember("solid-js/store")>]
@@ -649,6 +663,31 @@ type Bindings =
 
     [<ImportMember("solid-js")>]
     static member useTransition() : (unit -> bool) * ((unit -> unit) -> JS.Promise<unit>) = jsNative
+
+    /// <summary>
+    /// <para>On the client, Solid provides (via conditional exports) different builds depending on whether the development
+    /// condition is set. Development mode provides some additional checking - eg. detecting accidental use
+    /// of multiple instances of Solid - which are removed in production builds.</para>
+    /// <para>If you want code to only run in development mode (most useful in libraries), you can check whether the
+    /// DEV export is defined.</para>
+    /// </summary>
+    /// <remarks>
+    /// It is always defined on the server, so it is recommended to combine with <c>isServer</c>.<br/><br/>
+    /// It provides a bool for easy use in F#, but be aware the return type is <c>object | unidentified</c>.
+    /// </remarks>
+    [<ImportMember("solid-js")>]
+    static member DEV: bool = jsNative
+
+    /// <summary>
+    /// Indicates that code is being run as the server or browser bundle. As the underlying runtimes export
+    /// this as a constant boolean it allows bundlers to eliminate the code and their used imports from the
+    /// respective bundles.
+    /// </summary>
+    /// <remarks>
+    /// Shouldn't have much use in Fable unless you are just making some static sites with SolidStart or something.
+    /// </remarks>
+    [<ImportMember("solid-js/web")>]
+    static member isServer: bool = jsNative
 
     [<ImportMember("solid-js")>]
     static member startTransition() : ((unit -> unit) -> JS.Promise<unit>) = jsNative
