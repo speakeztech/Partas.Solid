@@ -95,12 +95,15 @@
         <Content Include="SolidCases\SolidComponentAsTagValues\SolidComponentAsTagValues.expected" />
         <Compile Include="SolidCases\ValueUnrollerDecisionTree\ValueUnrollerDecisionTree.fs" />
         <Content Include="SolidCases\ValueUnrollerDecisionTree\ValueUnrollerDecisionTree.expected" />
+        <Compile Include="TanStackStoreCases\BasicStore\BasicStore.fs" />
+        <Content Include="TanStackStoreCases\BasicStore\BasicStore.expected" />
 <!--        <Content Include="Spec\Components.fs" />-->
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\Partas.Solid.FablePlugin\Partas.Solid.FablePlugin.fsproj" />
         <ProjectReference Include="..\..\Partas.Solid\Partas.Solid.fsproj" />
+        <ProjectReference Include="..\..\Partas.Solid.TanStack.Store\Partas.Solid.TanStack.Store.fsproj" />
     </ItemGroup>
 
 </Project>

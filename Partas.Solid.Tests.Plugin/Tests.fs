@@ -106,3 +106,19 @@ let AttributeCases =
           |> runAttributeCase "PartasImport Attribute"
           "Pojo"
           |> runAttributeCase "Pojo Optimisation" ]
+
+let runTanStackStoreCase name caseName =
+    let runTanStackStoreCase' caseName =
+        fun _ ->
+            built.Value
+            let folderName = "TanStackStoreCases"
+            runCase folderName caseName
+
+    testCase name
+    <| runTanStackStoreCase' caseName
+
+[<Tests>]
+let TanStackStoreCases =
+    testList
+        "TanStackStoreCases"
+        [ "BasicStore" |> runTanStackStoreCase "Basic Store Usage" ]
