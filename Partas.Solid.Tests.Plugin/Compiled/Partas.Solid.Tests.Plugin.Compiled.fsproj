@@ -105,6 +105,20 @@
         <Content Include="TanStackStoreCases\DerivedStore\DerivedStore.expected" />
         <Compile Include="TanStackStoreCases\EffectStore\EffectStore.fs" />
         <Content Include="TanStackStoreCases\EffectStore\EffectStore.expected" />
+        <Compile Include="TanStackStoreCases\Subscribe\Subscribe.fs" />
+        <Content Include="TanStackStoreCases\Subscribe\Subscribe.expected" />
+        <Compile Include="TanStackStoreCases\StoreOptions\StoreOptions.fs" />
+        <Content Include="TanStackStoreCases\StoreOptions\StoreOptions.expected" />
+        <Compile Include="TanStackStoreCases\BatchUpdates\BatchUpdates.fs" />
+        <Content Include="TanStackStoreCases\BatchUpdates\BatchUpdates.expected" />
+        <Compile Include="TanStackStoreCases\DerivedPrevVal\DerivedPrevVal.fs" />
+        <Content Include="TanStackStoreCases\DerivedPrevVal\DerivedPrevVal.expected" />
+        <Compile Include="TanStackStoreCases\DerivedDepVals\DerivedDepVals.fs" />
+        <Content Include="TanStackStoreCases\DerivedDepVals\DerivedDepVals.expected" />
+        <Compile Include="TanStackStoreCases\EffectEager\EffectEager.fs" />
+        <Content Include="TanStackStoreCases\EffectEager\EffectEager.expected" />
+        <Compile Include="TanStackStoreCases\MountUnmount\MountUnmount.fs" />
+        <Content Include="TanStackStoreCases\MountUnmount\MountUnmount.expected" />
 <!--        <Content Include="Spec\Components.fs" />-->
     </ItemGroup>
 

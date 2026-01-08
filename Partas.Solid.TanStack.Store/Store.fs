@@ -8,11 +8,22 @@ open System
 [<AutoOpen>]
 module Bindings =
 
+    /// Store options - use anonymous record with !! operator:
+    /// new Store(0, !!{| updateFn = fun prev updater -> ... |})
+    [<Interface>]
+    type StoreOptions<'T> =
+        abstract member updateFn: ('T -> ('T -> 'T) -> 'T) option with get
+        abstract member onUpdate: (unit -> unit) option with get
+
     [<Import("Store", Spec.PackageName)>]
-    type Store<'T>(initialValue: 'T) =
+    type Store<'T>(initialValue: 'T, ?options: StoreOptions<'T>) =
         member _.state: 'T = jsNative
         member _.setState(updater: 'T -> 'T) : unit = jsNative
         member _.setState(newState: 'T) : unit = jsNative
+        member _.subscribe(callback: unit -> unit) : (unit -> unit) = jsNative
+
+    [<ImportMember(Spec.PackageName)>]
+    let batch (fn: unit -> unit) : unit = jsNative
 
     [<Interface>]
     type DerivedFnProps<'T> =
