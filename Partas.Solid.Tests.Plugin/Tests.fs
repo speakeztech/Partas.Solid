@@ -121,4 +121,13 @@ let runTanStackStoreCase name caseName =
 let TanStackStoreCases =
     testList
         "TanStackStoreCases"
-        [ "BasicStore" |> runTanStackStoreCase "Basic Store Usage" ]
+        [ "BasicStore"
+          |> runTanStackStoreCase "Basic Store Usage"
+          "UseStoreFull"
+          |> runTanStackStoreCase "useStoreFull hook"
+          "RecordState"
+          |> runTanStackStoreCase "Record type state"
+          "DerivedStore"
+          |> runTanStackStoreCase "Derived store"
+          "EffectStore"
+          |> runTanStackStoreCase "Effect store" ]

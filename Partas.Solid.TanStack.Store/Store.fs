@@ -10,14 +10,15 @@ module Bindings =
 
     [<Import("Store", Spec.PackageName)>]
     type Store<'T>(initialValue: 'T) =
-        member _.state : 'T = jsNative
+        member _.state: 'T = jsNative
         member _.setState(updater: 'T -> 'T) : unit = jsNative
         member _.setState(newState: 'T) : unit = jsNative
 
+    [<Interface>]
     type DerivedFnProps<'T> =
-        abstract prevVal: 'T option with get
-        abstract prevDepVals: obj[] option with get
-        abstract currDepVals: obj[] with get
+        abstract member prevVal: 'T option with get
+        abstract member prevDepVals: obj[] option with get
+        abstract member currDepVals: obj[] with get
 
     [<Pojo>]
     type DerivedOptions<'T>(fn: DerivedFnProps<'T> -> 'T, deps: obj[]) =
@@ -27,14 +28,14 @@ module Bindings =
         member val onUpdate: (unit -> unit) option = None with get, set
 
     and [<Import("Derived", Spec.PackageName)>] Derived<'T>(options: DerivedOptions<'T>) =
-        member _.state : 'T = jsNative
+        member _.state: 'T = jsNative
         member _.mount() : (unit -> unit) = jsNative
 
     [<Pojo>]
     type EffectOptions(fn: unit -> unit, deps: obj[]) =
-         member val fn = fn with get, set
-         member val deps = deps with get, set
-         member val eager = false with get, set
+        member val fn = fn with get, set
+        member val deps = deps with get, set
+        member val eager = false with get, set
 
     [<Import("Effect", Spec.PackageName)>]
     type Effect(options: EffectOptions) =
