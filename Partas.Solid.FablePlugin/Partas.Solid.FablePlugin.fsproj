@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <WarningsAsErrors>3239;0025</WarningsAsErrors>
         <PackageId>Partas.Solid.FablePlugin</PackageId>
